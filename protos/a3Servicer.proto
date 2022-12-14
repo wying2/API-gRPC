@@ -1,0 +1,41 @@
+syntax = "proto3";
+package protos;
+import "protos/a3.proto";
+
+service a3Servicer {
+    rpc CreateBook (CreateBookRequest) returns (CreateBookResponse) {
+
+    }
+
+    rpc GetBook (GetBookRequest) returns (GetBookResponse) {
+        
+    }
+}
+
+// error code for response
+enum ResponseCode {
+  ERR = 0;
+  NOERR = 1;
+}
+
+message CreateBookRequest {
+  Book book = 1;
+}
+  
+message CreateBookResponse {
+    ResponseCode code = 1;
+    string message = 2;
+}
+
+message GetBookRequest {
+    string ISBN = 1;
+}
+  
+message GetBookResponse {
+  ResponseCode code = 1;
+  // if there is error, return a message instead of a book object
+  oneof responseType {
+    Book book = 2;
+    string message = 3;
+  }
+}

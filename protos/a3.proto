@@ -1,0 +1,33 @@
+// this file contains the definitions of protocol buffer messages
+syntax = "proto3";
+
+package protos;
+
+message Book {
+  string ISBN = 1;
+  string title = 2;
+  string author = 3;
+
+  enum Genre {
+    FICTION = 0;
+    BIOGRAPHY = 1;
+    ART = 2;
+    SCIENCE = 3;
+    Business = 4;
+  }
+
+  Genre genre = 4; 
+  int32 publishYear = 5;
+}
+
+message InventoryItem {
+  int32 number = 1;
+  enum Status {
+    AVAILABLE = 0;
+    TAKEN = 1;
+  }
+  Status status = 2; 
+  oneof itemType {
+      Book Book = 3;
+  }    
+}
