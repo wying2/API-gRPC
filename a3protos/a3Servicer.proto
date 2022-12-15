@@ -1,6 +1,6 @@
 syntax = "proto3";
 package protos;
-import "protos/a3.proto";
+import "a3protos/a3.proto";
 
 service a3Servicer {
     rpc CreateBook (CreateBookRequest) returns (CreateBookResponse) {

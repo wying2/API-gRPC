@@ -3,9 +3,9 @@
 from concurrent import futures
 import logging
 import grpc
-import protos.a3_pb2 as a3_pb2
-import protos.a3Servicer_pb2 as a3Servicer_pb2
-import protos.a3Servicer_pb2_grpc as a3Servicer_pb2_grpc
+import a3protos.a3_pb2 as a3_pb2
+import a3protos.a3Servicer_pb2 as a3Servicer_pb2
+import a3protos.a3Servicer_pb2_grpc as a3Servicer_pb2_grpc
 import json
 
 # helper function to create a new Book defined as the proto file
