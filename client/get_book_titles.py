@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.append(os.path.join(os.path.dirname(__file__), "../service"))
 
 import service.a3protos.a3Servicer_pb2 as a3Servicer_pb2
-import inventory_client
+import client.inventory_client as inventory_client
 
 # create a dict from a book
 def create_book(book):
@@ -14,12 +14,12 @@ def create_book(book):
 # taking a list of ISBNs and a client (stub)
 # calling GetBook RPC to retrieve corresponding titles
 # return them as a list
-def runGet(ISBNs, stub):
+def runGet(ISBNs, client):
     res = []
     for ISBN in ISBNs:
-        response = stub.GetBook(a3Servicer_pb2.GetBookRequest(ISBN=ISBN))
+        response = client.runGet(ISBN)
         if (response.code == 0):
-            res.append({})
+            res.append({'ISBN':'','title':'','author':'','genre':'','publishYear':''})
         else:
             res.append(create_book(response.book))
     return res
@@ -29,6 +29,6 @@ if __name__ == '__main__':
     client = inventory_client.inventory_client()
     # call the defined function using two hardcoded ISBNs as a parameter
     ISBNs = ['1982143707','1938120752']
-    books = runGet(ISBNs, client.stub)
+    books = runGet(ISBNs, client)
     for book in books:
         print(book['title'])
