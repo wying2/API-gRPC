@@ -19,16 +19,16 @@ def runGet(ISBNs, client):
     for ISBN in ISBNs:
         response = client.runGet(ISBN)
         if (response.code == 0):
-            res.append({'ISBN':'','title':'','author':'','genre':'','publishYear':''})
+            res.append(None)
         else:
-            res.append(create_book(response.book))
+            res.append(response.book.title)
     return res
 
 if __name__ == '__main__':
     # create an instance of client api object with reasonable defaults
     client = inventory_client.inventory_client()
     # call the defined function using two hardcoded ISBNs as a parameter
-    ISBNs = ['1982143707','1938120752']
+    ISBNs = ['1982143707','1938120752','0']
     books = runGet(ISBNs, client)
     for book in books:
-        print(book['title'])
+        print(book)

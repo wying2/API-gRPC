@@ -21,21 +21,21 @@ class test_TestGetBook(unittest.TestCase):
         response = a3Servicer_pb2.GetBookResponse(code=1,book=resBook)
         mockClient.runGet = MagicMock(return_value=response)
         # call with mock client
-        ISBNs = ['1982143707']
+        ISBNs = ['1982143707','0']
         books = get_book_titles.runGet(ISBNs, mockClient)
         for ISBN in ISBNs:
-            mockClient.runGet.assert_called_with(ISBN)
+            mockClient.runGet.assert_any_call(ISBN)
 
     # test with real server and client
     def testRealClient(self):
         # create client object
         Client = inventory_client.inventory_client()
         # define expected return
-        resBook = {'ISBN':'1982143709','title':'you','author':'me','genre':0,'publishYear':2022}
+        resBook = ['you',None,'Turning the Pyramid Upside Down']
         # call with real client
-        ISBNs = ['1982143709']
+        ISBNs = ['1982143709','0','1938120752']
         books = get_book_titles.runGet(ISBNs, Client)
-        self.assertEqual([resBook], books, 'test passed')
+        self.assertEqual(resBook, books, 'test passed')
         
 
 if __name__ == '__main__':
